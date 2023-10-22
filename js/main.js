@@ -1,19 +1,13 @@
-//$(document).ready(function () { //si el documento esta listo
 var converter = new showdown.Converter();//se crea un nuevo objeto converter para el manejo de showdown
 var artyom = new Artyom();//el sonido
 var banderaSonido = false;
 main();
 
 function main() {
-    //configurar sonido:
-    artyom.initialize({
-        lang: "es-ES",
-        debug: true,
-        listen: true,
-        continuous: true,
-        speed: 0.9,
-        mode: "normal"
-    });
+
+    //configurarSonido();
+    $("#sonidoDesactivado").hide();
+
     $("#consultar").on("click", function () {
         responder();
     });
@@ -24,12 +18,16 @@ function main() {
         }
     });
 
-    $("#sonido").on("click", function () {
-        artyom.say("sonido activado");
-        banderaSonido = true;
+    $("#sonidoActivado").on("click", function () {
+        activarSonido();
     });
+
+    $("#sonidoDesactivado").on("click", function () {
+        desactivarSonido();
+    });
+
 }
-//})
+
 function responder() {
 
     $.ajax({ //mandar mensajes de manera asincronicas al server sin refrescar el navegador
@@ -45,7 +43,7 @@ function responder() {
             //console.log(data)
             $("#chat").append(`<p class="chat-response"> ${converter.makeHtml(data.respuesta)} </p>`) //imprimir la respuesta en el id chat
             if (banderaSonido) {
-                artyom.say(data.respuesta);
+                artyom.say(data.respuesta);//hablar
             }
 
         }
@@ -57,3 +55,43 @@ function responder() {
 function limpiar() {
     document.getElementById("txt_buscador").value = "";
 }
+
+function activarSonido() {
+    artyom.say("sonido activado");
+    banderaSonido = true;
+    $("#sonidoDesactivado").show();//mostrar objeto
+    $("#sonidoActivado").hide();//ocultar objeto
+}
+
+function desactivarSonido() {
+    artyom.say("sonido desactivado");
+    banderaSonido = false;
+    $("#sonidoActivado").show();//mostrar objeto
+    $("#sonidoDesactivado").hide();//ocultar objeto
+}
+
+
+
+//configurar sonido:
+artyom.initialize({
+    lang: "es-ES",
+    debug: true,
+    listen: true,
+    continuous: true,
+    speed: 0.9,
+    mode: "normal"
+});
+//Acciones de voz
+artyom.addCommands({
+    indexes: ["Activar", "Desactivar", "Buscar"],
+    action: function (i) {
+        if (i == 0) {
+            activarSonido();
+        } else if (i == 1) {
+            desactivarSonido();
+        }
+        else if (i == 2) {
+            responder();
+        }
+    }
+});
