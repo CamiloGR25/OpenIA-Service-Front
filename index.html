@@ -24,8 +24,7 @@
             <div class="input-group mb-3">
                 <input type="text" name="txt_buscador" id="txt_buscador" class="form-control">
 
-                <button class="btn btn-primary" id="consultar">Consultar</button>
-
+                <button class="btn btn-primary consultar">BUSCAR</button>
             </div>
         </div>
 
@@ -34,21 +33,50 @@
 
             </div>
         </div>
+
+
     </div>
 
     <div>
         <center>
             <button type="button" class="btn btn-success" id="sonidoActivado">ACTIVAR SONIDO</button>
             <button type="button" class="btn btn-danger" id="sonidoDesactivado">DESACTIVAR SONIDO</button>
-            <button type="button" class="btn btn-info">BUSCAR POR AUDIO</button>
+            <button type="button" class="btn btn-info" id="buscarAudio" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">BUSCAR POR AUDIO</button>
         </center>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">BUSCAR POR MEDIO DEL AUDIO </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="fondoConsultar">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCELAR</button>
+                    <button type="button" class="btn btn-warning" id="limpiar">LIMPIAR</button>
+                    <button type="button" class="btn btn-primary consultar" data-bs-dismiss="modal">BUSCAR</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!--Libreria JQuery-->
+
+    <!--Libreria JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--Libreria showdown:-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.3/showdown.min.js"></script>
     <script src="js/artyom.window.js"></script>
+    <!--bootstrao libreria js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
 
 </body>

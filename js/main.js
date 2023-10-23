@@ -1,15 +1,16 @@
 var converter = new showdown.Converter();//se crea un nuevo objeto converter para el manejo de showdown
 var artyom = new Artyom();//el sonido
 var banderaSonido = false;
+var audioAux;
 main();
 
 function main() {
 
-    //configurarSonido();
     $("#sonidoDesactivado").hide();
 
-    $("#consultar").on("click", function () {
-        responder();
+    $(".consultar").on("click", function () {
+        responder(verificarPregunta());
+
     });
 
     $("#txt_buscador").keyup(function (event) { //keyup evento cuando se oprime una tecla
@@ -25,10 +26,17 @@ function main() {
     $("#sonidoDesactivado").on("click", function () {
         desactivarSonido();
     });
+    $("#buscarAudio").on("click", function () {
+        mostrarBusquedaAudio();
+        limpiar();
+    });
+    $("#limpiar").on("click", function () {
+        limpiar()
+    })
 
 }
 
-function responder() {
+function responder(preg) {
 
     $.ajax({ //mandar mensajes de manera asincronicas al server sin refrescar el navegador
 
@@ -36,7 +44,7 @@ function responder() {
         type: "POST",
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify({ pregunta: $("#txt_buscador").val() }), //convertir el valor a json gracias a stringify
+        data: JSON.stringify({ pregunta: preg }), //convertir el valor a json gracias a stringify
 
         //succes es si hay un funcionamiento exitoso haga la funcion
         success: function (data) { //data es la respuesta dada por el servidor del Back
@@ -45,15 +53,17 @@ function responder() {
             if (banderaSonido) {
                 artyom.say(data.respuesta);//hablar
             }
-
         }
     });
 
     limpiar();
+    audioAux = "";
 }
 
 function limpiar() {
     document.getElementById("txt_buscador").value = "";
+    $(".audio").remove();
+
 }
 
 function activarSonido() {
@@ -71,7 +81,6 @@ function desactivarSonido() {
 }
 
 
-
 //configurar sonido:
 artyom.initialize({
     lang: "es-ES",
@@ -83,7 +92,7 @@ artyom.initialize({
 });
 //Acciones de voz
 artyom.addCommands({
-    indexes: ["Activar", "Desactivar", "Buscar"],
+    indexes: ["Activar", "Desactivar", "Buscar", "audio"],
     action: function (i) {
         if (i == 0) {
             activarSonido();
@@ -91,7 +100,29 @@ artyom.addCommands({
             desactivarSonido();
         }
         else if (i == 2) {
-            responder();
+            responder(verificarPregunta());
+        }
+        else if (i == 3) {
+            $("#buscarAudio").click();
+            mostrarBusquedaAudio();
+            limpiar();
         }
     }
 });
+
+function mostrarBusquedaAudio() {
+    artyom.redirectRecognizedTextOutput(function (recognized, isFinal) {
+        if (isFinal) {
+            $("#fondoConsultar").append(`<p class="audio"> ${recognized} </p>`);
+            audioAux = recognized;
+        }
+    });
+}
+
+function verificarPregunta() {
+    if ($("#txt_buscador").val().length != 0) {
+        return $("#txt_buscador").val()
+    } else {
+        return audioAux;
+    }
+}
