@@ -12,7 +12,14 @@
 
 <body>
     <div class="container mt-5">
-
+        <button type="button" class="btn btn-warning" id="btnInstrucciones" data-bs-toggle="modal"
+            data-bs-target="#Instrucciones">
+            <h2>?</h2>
+        </button>
+        <button type="button" class="btn btn-dark  " id="asistente" data-bs-toggle="modal"
+            data-bs-target="#asistenteVirtual">
+            <img src="img/imgpersona.png" alt="" width="100">
+        </button>
         <div class="row">
             <center>
                 <h1 id="titulo">ASISTENTE VIRTUAL</h1>
@@ -21,10 +28,8 @@
         </div>
 
         <div class="row">
-            <div class="input-group mb-3">
-                <input type="text" name="txt_buscador" id="txt_buscador" class="form-control">
+            <div id="pregunta" class="list-group">
 
-                <button class="btn btn-primary consultar">BUSCAR</button>
             </div>
         </div>
 
@@ -33,7 +38,13 @@
 
             </div>
         </div>
+        <div class="row">
+            <div class="input-group mb-3">
+                <input type="text" name="txt_buscador" id="txt_buscador" class="form-control">
 
+                <button class="btn btn-primary consultar">BUSCAR</button>
+            </div>
+        </div>
 
     </div>
 
@@ -42,10 +53,10 @@
             <button type="button" class="btn btn-success" id="sonidoActivado">ACTIVAR SONIDO</button>
             <button type="button" class="btn btn-danger" id="sonidoDesactivado">DESACTIVAR SONIDO</button>
             <button type="button" class="btn btn-info" id="buscarAudio" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop">BUSCAR POR AUDIO</button>
+                data-bs-target="#staticBackdrop">PREGUNTAR POR AUDIO</button>
         </center>
     </div>
-    <!-- Modal -->
+    <!-- Modal Buscar-->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -58,7 +69,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCELAR</button>
+                    <button type="button" class="btn btn-danger cancelar" data-bs-dismiss="modal">CANCELAR</button>
                     <button type="button" class="btn btn-warning" id="limpiar">LIMPIAR</button>
                     <button type="button" class="btn btn-primary consultar" data-bs-dismiss="modal">BUSCAR</button>
                 </div>
@@ -67,6 +78,80 @@
     </div>
 
 
+    <!-- Modal Instrucciones -->
+    <div class="modal fade" id="Instrucciones" tabindex="-1" aria-labelledby="Instrucciones" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="InstruccionesLabel"><strong>COMANDO DE VOZ:</strong></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ol class="list-group list-group-numbered">
+
+                        <li class="list-group-item"><strong>INSTRUCCIONES:</strong> Abre el cuadro
+                            de instrucciones por comando de voz.</li>
+                        <li class="list-group-item"><strong>ACTIVAR:</strong> Activa el sonido del
+                            computador para leer la respuesta del asistente virtual.</li>
+                        <li class="list-group-item"><strong>DESACTIVAR:</strong> Desactiva el
+                            sonido del computador para leer la respuesta del asistente virtual</li>
+                        <li class="list-group-item"><strong>BUSCAR:</strong> Envia la pregunta al
+                            asistente virtual.</li>
+                        <li class="list-group-item"><strong>PREGUNTAR:</strong> Abre un cuadro
+                            donde recibe la pregunta por audio para enviarla al asistente virtual.</li>
+                        <li class="list-group-item"><strong>ASISTENTE:</strong> Abre un cuadro
+                            donde se puede escoger el tipo de asistente virtual.</li>
+                        <li class="list-group-item"><strong>CANCELAR:</strong> Se cierra el cuadro
+                            donde tenga la opción de un boton para cerrar.</li>
+
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger cancelar" data-bs-dismiss="modal">CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal asistente-->
+    <div class="modal fade" id="asistenteVirtual" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="asistenteVirtualLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="asistenteVirtualLabel">ESCOGE EL ASISTENTE VIRTUAL: </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" name="Asistente_Persona" id="Asistente_Persona" class="form-control">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary Aceptar" id="aceptar">ACEPTAR</button>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-primary"><img src="img/imgDoctor.png" alt=""
+                            width="119" id="doctor"><br>Doctor</button>
+                    <button type="button" class="btn btn-outline-primary"><img src="img/imgFilosofo.png" alt=""
+                            width="119" id="filosofo"><br>Filósofo</button>
+                    <button type="button" class="btn btn-outline-primary"><img src="img/imgProgramador.png" alt=""
+                            width="119" id="programador"><br>Programador</button>
+                    <button type="button" class="btn btn-outline-primary"><img src="img/imgFisico.png" alt=""
+                            width="119" id="fisico"><br>Físico</button>
+                    <button type="button" class="btn btn-outline-primary"><img src="img/imgCulturista.png" alt=""
+                            width="119" id="culturista"><br>Culturista</button>
+                    <button type="button" class="btn btn-outline-primary"><img src="img/imgMatematico.png" alt=""
+                            width=" 119" id="matematico"><br>Matemático</button>
+                    <button type="button" class="btn btn-outline-primary"><img src="img/imgpersona.png" alt=""
+                            width=" 119" id="ninguno"><br>Ninguno</button>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger cancelar" data-bs-dismiss="modal">CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--Libreria JQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
